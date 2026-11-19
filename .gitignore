@@ -1,0 +1,19 @@
+.next
+node_modules
+.env.local
+*.log
+coverage
+playwright-report
+test-results
+
+# Environment files (secrets). .env.example is committed on purpose.
+.env
+.env*.local
+!.env.example
+
+# Supabase CLI local state
+supabase/.branches
+supabase/.temp
+
+# Build artifacts
+*.tsbuildinfo

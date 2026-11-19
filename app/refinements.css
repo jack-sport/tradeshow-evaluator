@@ -1,0 +1,4 @@
+.cost-group{border:1px solid var(--line);border-radius:7px;padding:16px;background:var(--wash)}
+.cost-group h3{margin:0 0 12px;color:var(--navy);font-size:14px}
+:focus-visible{outline:3px solid rgba(0,168,200,.55);outline-offset:3px}
+@media(max-width:800px){.cost-group .two-col{grid-template-columns:1fr}}
