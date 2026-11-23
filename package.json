@@ -10,7 +10,11 @@
     "typecheck": "tsc --noEmit",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "ai:drafts": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/write-ai-drafts.mts",
+    "import:events": "python3 -I scripts/import-events.py",
+    "adopt:ai": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/adopt-ai-draft.mts",
+    "costs:load": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/load-cost-research.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

@@ -1,0 +1,12 @@
+{
+ "_about": "Import settings for scripts/import-events.py. Events are keyed by the master workbook's Event ID column. 'exclude' rows are never imported. 'participation' overrides the workbook's Attend/Exhibit flags (Exhibit x = exhibited, Attend x = attended, neither = unknown). Copy to data/config/event-import-config.json (kept out of git) and edit.",
+ "exclude": {
+  "example-company-picnic-2026": "Own event"
+ },
+ "participation": {
+  "example-show-2026": {
+   "participation": "attended",
+   "notes": "Confirmed attended."
+  }
+ }
+}

@@ -15,8 +15,8 @@ const responses: ResponseRow[] = criteria.map((criterion, index) => ({ criterion
 const evaluation: Evaluation = { id: "e1", event_id: "show-1", evaluator_id: "u1", status: "submitted", recommendation: "exhibit", comments: "Strong target concentration and proven meeting access.", opportunity_score: 89, exhibit_score: 76, submitted_at: "2026-09-20T12:00:00Z", updated_at: "2026-09-20T12:00:00Z" };
 const peers: PeerEvaluation[] = [
   { ...evaluation, profiles: { full_name: "Jordan Lee" }, evaluation_responses: responses.map(({ criterion_id, rating }) => ({ criterion_id, rating })) },
-  { ...evaluation, id: "e2", evaluator_id: "u2", recommendation: "sales_only", opportunity_score: 78, exhibit_score: 59, comments: "Excellent event, but meetings do not depend on a booth.", profiles: { full_name: "Morgan Patel" }, evaluation_responses: responses.map(({ criterion_id, rating }, index) => ({ criterion_id, rating: Math.max(1, rating - (index % 2)) })) },
-  { ...evaluation, id: "e3", evaluator_id: "u3", opportunity_score: 92, exhibit_score: 81, comments: "One of the strongest concentrations of priority accounts.", profiles: { full_name: "Casey Rivera" }, evaluation_responses: responses.map(({ criterion_id, rating }) => ({ criterion_id, rating: Math.min(5, rating + 1) })) },
+  { ...evaluation, id: "e2", evaluator_id: "u2", recommendation: "sales_only", opportunity_score: 78, exhibit_score: 59, comments: "Excellent event, but meetings do not depend on a booth.", profiles: { full_name: "Morgan Patel" }, evaluation_responses: responses.map(({ criterion_id, rating }, index) => ({ criterion_id, rating: Math.max(1, (rating ?? 3) - (index % 2)) })) },
+  { ...evaluation, id: "e3", evaluator_id: "u3", opportunity_score: 92, exhibit_score: 81, comments: "One of the strongest concentrations of priority accounts.", profiles: { full_name: "Casey Rivera" }, evaluation_responses: responses.map(({ criterion_id, rating }) => ({ criterion_id, rating: Math.min(5, (rating ?? 3) + 1) })) },
 ];
 
 function DashboardPreview() {

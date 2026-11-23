@@ -17,3 +17,7 @@ supabase/.temp
 
 # Build artifacts
 *.tsbuildinfo
+
+# Internal documents and data (research, AI drafts, budget settings, import config): not for the public repo
+docs/
+data/

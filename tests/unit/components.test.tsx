@@ -26,7 +26,9 @@ describe("evaluation form", () => {
     const { container } = render(<EvaluationForm eventId="show" criteria={criteria} evaluation={evaluation} responses={responses} />);
     expect(screen.getByRole("heading", { name: "Event Opportunity" })).toBeTruthy();
     expect(screen.getByRole("heading", { name: "Exhibit Value" })).toBeTruthy();
-    expect(screen.getAllByRole("radio")).toHaveLength(13);
+    // 2 criteria x (5 ratings + Unknown) + 3 recommendations
+    expect(screen.getAllByRole("radio")).toHaveLength(15);
+    expect(screen.getAllByRole("radio", { name: /Unknown/ })).toHaveLength(2);
     expect(screen.getByRole("button", { name: "Save draft" }).hasAttribute("formnovalidate")).toBe(true);
     const exceptional = container.querySelector("input[name='rating_b'][value='5']") as HTMLInputElement;
     await user.click(exceptional);
@@ -41,5 +43,24 @@ describe("comparison", () => {
     expect(screen.getByText("Morgan Patel")).toBeTruthy();
     expect(screen.getAllByText("80.0").length).toBeGreaterThan(0);
     expect(screen.getByText("Where the team stands")).toBeTruthy();
+  });
+});
+
+describe("cost notes on the assessment form", () => {
+  const costCriteria: Criterion[] = [
+    { id: "o", section: "opportunity", category: "Economics", label: "Cost and staff efficiency", description: "Attending cost", weight: 100, sort_order: 1 },
+    { id: "x", section: "exhibit", category: "Economics", label: "Exhibit cost efficiency", description: "Exhibit cost", weight: 100, sort_order: 2 },
+  ];
+  it("shows attending and exhibiting estimates, with line items and the extra cost of a booth", () => {
+    render(<EvaluationForm eventId="show" criteria={costCriteria} evaluation={null} responses={[]}
+      costs={{ exhibit: 23164, salesOnly: 8200, salesBreakdown: { registration: 1250, travel_lodging: 6950, staff_time: 0 }, exhibitBreakdown: { booth_sponsorship: 7750 } }} />);
+    expect(screen.getByText("Estimated cost of attending (sales only): $8,200")).toBeTruthy();
+    expect(screen.getByText("Registration $1,250 · Travel / lodging $6,950")).toBeTruthy();
+    expect(screen.getByText("Estimated cost of exhibiting: $23,164 ($14,964 more than attending)")).toBeTruthy();
+  });
+  it("says when costs haven't been estimated", () => {
+    render(<EvaluationForm eventId="show" criteria={costCriteria} evaluation={null} responses={[]} costs={{ exhibit: null, salesOnly: null }} />);
+    expect(screen.getByText(/Cost of attending not estimated yet/)).toBeTruthy();
+    expect(screen.getByText(/Cost of exhibiting not estimated yet/)).toBeTruthy();
   });
 });
